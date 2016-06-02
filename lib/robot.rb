@@ -2,6 +2,7 @@ class Robot
   CAPACITY = 250
 
   attr_reader :position, :items, :health, :attack_power
+  attr_accessor :equipped_weapon
 
   def initialize
     @position = [0,0]
@@ -49,6 +50,7 @@ class Robot
 
   # Attack
   def attack(foe)
-    foe.wound(attack_power)
+    equipped_weapon ? equipped_weapon.hit(foe) : foe.wound(attack_power)
   end
+
 end
