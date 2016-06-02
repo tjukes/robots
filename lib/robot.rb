@@ -28,9 +28,10 @@ class Robot
     @position[1] -= 1
   end
 
-# Item interaction methods
+# Item interaction methods, including weapon pick-up
   def pick_up(item)
     @items << item if items_weight + item.weight <= CAPACITY
+    self.equipped_weapon = item if item.is_a? Weapon
   end
 
   def items_weight
