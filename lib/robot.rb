@@ -1,11 +1,13 @@
 class Robot
   CAPACITY = 250
 
-  attr_reader :position, :items
+  attr_reader :position, :items, :health, :attack_power
 
   def initialize
     @position = [0,0]
     @items = []
+    @health = 100
+    @attack_power = 5
   end
 
 # Movement methods
@@ -36,4 +38,17 @@ class Robot
     weight
   end
 
+  # Robot health methods
+  def wound(amount)
+    @health - amount < 0 ? @health = 0 : @health -= amount
+  end
+
+  def heal(amount)
+    @health + amount > 100 ? @health = 100 : @health += amount
+  end
+
+  # Attack
+  def attack(enemy)
+    enemy.wound(attack_power)
+  end
 end
