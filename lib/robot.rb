@@ -13,19 +13,19 @@ class Robot
 
 # Movement methods
   def move_left
-    @position[0] -= 1
+    move(-1,0)
   end
 
   def move_right
-    @position[0] += 1
+    move(1,0)
   end
 
   def move_up
-    @position[1] += 1
+    move(0,1)
   end
 
   def move_down
-    @position[1] -= 1
+    move(0,-1)
   end
 
 # Item interaction methods, including weapon pick-up
@@ -56,4 +56,9 @@ class Robot
     equipped_weapon ? equipped_weapon.hit(foe) : foe.wound(attack_power)
   end
 
+  private
+  def move(x,y)
+    @position[0] += x
+    @position[1] += y
+  end
 end
