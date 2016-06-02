@@ -30,8 +30,10 @@ class Robot
 
 # Item interaction methods, including weapon pick-up
   def pick_up(item)
-    @items << item if items_weight + item.weight <= CAPACITY
+    return false if items_weight + item.weight > CAPACITY
+    @items << item
     self.equipped_weapon = item if item.is_a? Weapon
+    @items
   end
 
   def items_weight
@@ -41,12 +43,12 @@ class Robot
   end
 
   # Robot health methods
-  def wound(amount)
-    @health - amount < 0 ? @health = 0 : @health -= amount
+  def wound(health_points)
+    @health - health_points < 0 ? @health = 0 : @health -= health_points
   end
 
-  def heal(amount)
-    @health + amount > 100 ? @health = 100 : @health += amount
+  def heal(health_points)
+    @health + health_points > 100 ? @health = 100 : @health += health_points
   end
 
   # Attack
