@@ -48,7 +48,7 @@ class Robot
   end
 
   # Attack
-  def attack(enemy)
-    enemy.wound(attack_power)
+  def attack(foe)
+    foe.wound(attack_power)
   end
 end
