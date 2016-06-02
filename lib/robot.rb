@@ -37,9 +37,8 @@ class Robot
   end
 
   def items_weight
-    weight = 0
-    @items.each { |item| weight += item.weight}
-    weight
+    return 0 if @items == []
+    @items.reduce(0) {|sum, item| sum += item.weight }
   end
 
   # Robot health methods
