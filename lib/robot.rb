@@ -62,8 +62,20 @@ class Robot
 
   # Attack
   def attack(foe)
-    return false unless foe_in_range?(foe)
-    equipped_weapon ? equipped_weapon.hit(foe) : foe.wound(attack_power)
+    if equipped_weapon.is_a? Grenade
+      return false unless foe_in_range?(foe, equipped_weapon.range)
+      equipped_weapon.hit(foe)
+      self.equipped_weapon = nil
+    elsif equipped_weapon
+      return false unless foe_in_range?(foe)
+      equipped_weapon.hit(foe)
+    elsif foe_in_range?(foe)
+      foe.wound(attack_power)
+    else
+      false
+    end
+    # return false unless foe_in_range?(foe)
+    # equipped_weapon ? equipped_weapon.hit(foe) : foe.wound(attack_power)
   end
 
   # Enhanced attack
@@ -78,13 +90,14 @@ class Robot
     @position[1] += y
   end
 
-  def foe_in_range?(foe)
+  def foe_in_range?(foe, range=1)
     x, y = self.position
     foe_x, foe_y = foe.position
     if foe_x == x
-      foe_y == y + 1 || foe_y == y - 1
+      # Current specs require "in range" to include foes at exactly the same position. Remove first conditions if that is no longer true.
+      foe_y == y || foe_y == y + range || foe_y == y - range
     elsif foe_y == y
-      foe_x == x + 1 || foe_x == x - 1
+      foe_x == x || foe_x == x + range || foe_x == x - range
     else
       false
     end
