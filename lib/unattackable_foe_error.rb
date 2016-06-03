@@ -1,0 +1,3 @@
+class UnattackableFoeError < StandardError
+
+end

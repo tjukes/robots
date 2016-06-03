@@ -21,7 +21,7 @@ describe Robot do
 
     it "should raise exception if robot is dead" do
       @robot.wound(120)
-      expect{ @robot.heal!(50) }.to raise_error
+      expect{ @robot.heal!(50) }.to raise_error DeadRobotError
     end
   end
 
@@ -36,7 +36,7 @@ describe Robot do
 
     it "should raise exception it target is not a Robot" do
       not_foe = Object.new
-      expect{ @robot.attack!(not_foe) }.to raise_error
+      expect{ @robot.attack!(not_foe) }.to raise_error UnattackableFoeError
     end
   end
 

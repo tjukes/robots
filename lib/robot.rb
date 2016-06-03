@@ -52,7 +52,7 @@ class Robot
 
   # Enhanced healing
   def heal!(health_points)
-    raise "Too late - robot is already dead!" if @health <= 0
+    raise DeadRobotError, "Too late - robot is already dead!" if @health <= 0
     self.heal(health_points)
   end
 
@@ -63,7 +63,7 @@ class Robot
 
   # Enhanced attack
   def attack!(foe)
-    raise "Pick on a robot your own size!" unless foe.is_a? Robot
+    raise UnattackableFoeError, "Pick on a robot your own size!" unless foe.is_a? Robot
     attack(foe)
   end
 
