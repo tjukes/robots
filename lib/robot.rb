@@ -58,6 +58,7 @@ class Robot
 
   # Attack
   def attack(foe)
+    return false unless foe_in_range?(foe)
     equipped_weapon ? equipped_weapon.hit(foe) : foe.wound(attack_power)
   end
 
@@ -71,5 +72,17 @@ class Robot
   def move(x,y)
     @position[0] += x
     @position[1] += y
+  end
+
+  def foe_in_range?(foe)
+    x, y = self.position
+    foe_x, foe_y = foe.position
+    if foe_x == x
+      foe_y == y + 1 || foe_y == y - 1
+    elsif foe_y == y
+      foe_x == x + 1 || foe_x == x - 1
+    else
+      false
+    end
   end
 end
