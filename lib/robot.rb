@@ -32,7 +32,11 @@ class Robot
   def pick_up(item)
     return false if items_weight + item.weight > CAPACITY
     @items << item
+    # Equipping with weapon
     self.equipped_weapon = item if item.is_a? Weapon
+    # Feeding on bolts
+    item.feed(self) if self.health <= 80 && item.is_a?(BoxOfBolts)
+    # Return value
     @items
   end
 
